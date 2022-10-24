@@ -16,6 +16,7 @@ CREATE TABLE ingredients (
 CREATE TABLE recipies (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
+  ingredients jsonb,
   description TEXT NOT NULL,
   instructions TEXT NOT NULL,
   image TEXT NOT NULL
