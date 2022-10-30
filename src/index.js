@@ -23,7 +23,8 @@ function updateGroceryList() {
       client.send(
         JSON.stringify({
           type: "SET_GROCERYLIST",
-          id
+          id,
+          name
         })
       );
     }

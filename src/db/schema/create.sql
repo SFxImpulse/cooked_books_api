@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS favourites CASCADE;
+DROP TABLE IF EXISTS ingredients_grocery_list CASCADE;
 DROP TABLE IF EXISTS grocery_list CASCADE;
 DROP TABLE IF EXISTS recipies CASCADE;
 DROP TABLE IF EXISTS ingredients CASCADE;
@@ -22,6 +23,11 @@ CREATE TABLE recipies (
 
 CREATE TABLE grocery_list (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  ingredients jsonb
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE ingredients_grocery_list (
+  ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE,
+  grocery_list_id INTEGER REFERENCES grocery_list(id) ON DELETE CASCADE,
+  PRIMARY KEY (ingredient_id, grocery_list_id)
 );
