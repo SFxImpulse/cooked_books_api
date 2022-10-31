@@ -35,16 +35,16 @@ module.exports = (db, updateGroceryList) => {
       .catch(error => console.log(error));
   });
 
-  // router.delete("/grocery_list/:id", (req, res) => {
+  router.delete("/grocery_list/:id", (req, res) => {
 
-  //   const { id } = req.body.ingredients;
+    const { id } = req.body.ingredients;
 
-  //   db.query(`DELETE FROM ingredients_grocery_list WHERE ingredient_id = $1::integer`, [
-  //     id
-  //   ]).then(() => {
-  //     updateGroceryList(null, )
-  //   })
-  // })
+    db.query(`DELETE FROM ingredients_grocery_list WHERE ingredient_id = $1::integer`, [
+      id
+    ]).then(() => {
+      updateGroceryList(id)
+    })
+  });
 
   return router;
 }
