@@ -17,14 +17,15 @@ wss.on("connection", socket => {
   };
 });
 
-function updateGroceryList(ingredient_id, grocery_list_id) {
+function updateGroceryList(ingredient_id, grocery_list_id, ingredients) {
   wss.clients.forEach(function eachClient(client) {
     if (client.readyState === WebSocket.OPEN) {
       client.send(
         JSON.stringify({
           type: "SET_GROCERYLIST",
           ingredient_id,
-          grocery_list_id
+          grocery_list_id,
+          ingredients
         })
       );
     }
