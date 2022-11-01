@@ -25,8 +25,6 @@ module.exports = (db, updateGroceryList) => {
 
     const { id } = req.body.ingredients;
 
-    console.log(req.params.id);
-
     db.query(
       `INSERT INTO ingredients_grocery_list (ingredient_id, grocery_list_id) VALUES ($1::integer, $2::integer)`,
       [id, Number(req.params.id)]
@@ -41,8 +39,6 @@ module.exports = (db, updateGroceryList) => {
   });
 
   router.delete("/grocery_list/:id", (req, res) => {
-
-    console.log(req.params.id);
 
     db.query(`DELETE FROM ingredients_grocery_list WHERE ingredient_id = $1::integer`, [
       req.params.id
