@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const router = require("express").Router();
 
 module.exports = (db, updateGroceryList) => {
@@ -23,22 +25,32 @@ module.exports = (db, updateGroceryList) => {
 
     const { id } = req.body.ingredients;
 
+    console.log(req.params.id);
+
     db.query(
       `INSERT INTO ingredients_grocery_list (ingredient_id, grocery_list_id) VALUES ($1::integer, $2::integer)`,
       [id, Number(req.params.id)]
     )
       .then(() => {
-        updateGroceryList(id, Number(req.params.id))
+        setTimeout(() => {
+          res.status(204).json({});
+          updateGroceryList(id, Number(req.params.id));
+        }, 1000);
       })
       .catch(error => console.log(error));
   });
 
   router.delete("/grocery_list/:id", (req, res) => {
 
+    console.log(req.params.id);
+
     db.query(`DELETE FROM ingredients_grocery_list WHERE ingredient_id = $1::integer`, [
       req.params.id
     ]).then(() => {
-      updateGroceryList(req.params.id)
+      setTimeout(() => {
+        res.status(204).json({});
+        updateGroceryList(req.params.id);
+      }, 1000);
     })
     .catch(error => console.log(error));
   });
