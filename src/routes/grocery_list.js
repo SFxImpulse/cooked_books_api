@@ -9,11 +9,13 @@ module.exports = (db, updateGroceryList) => {
         SELECT
           grocery_list.id,
           grocery_list.name,
-          array_agg(json_build_object('id', ingredients_grocery_list.ingredient_id, 'name', ingredients.name)) AS ingredients
+          CASE WHEN grocery_list.ingredient_id IS NULL
+          THEN NULL
+          ELSE array_agg(json_build_object('id', grocery_list.ingredient_id, 'name', ingredients.name))
+          END AS ingredients
         FROM grocery_list
-        JOIN ingredients_grocery_list ON ingredients_grocery_list.grocery_list_id = grocery_list.id
-        JOIN ingredients ON ingredients.id = ingredients_grocery_list.ingredient_id
-        GROUP BY grocery_list.id
+        LEFT JOIN ingredients ON ingredients.id = grocery_list.ingredient_id
+        GROUP BY grocery_list.id, grocery_list.ingredient_id, ingredients.name
         ORDER BY grocery_list.id
       `
     ).then(({ rows: grocery_list }) => {

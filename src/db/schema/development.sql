@@ -12,7 +12,3 @@ VALUES
 INSERT INTO grocery_list (name)
 VALUES
   ('My Grocery List');
-
-INSERT INTO ingredients_grocery_list (ingredient_id, grocery_list_id)
-VALUES
-  (1, 1), (2, 1);
