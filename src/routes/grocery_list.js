@@ -9,13 +9,11 @@ module.exports = (db, updateGroceryList) => {
         SELECT
           grocery_list.id,
           grocery_list.name,
-          CASE WHEN grocery_list.ingredient_id IS NULL
-          THEN NULL
-          ELSE array_agg(json_build_object('id', grocery_list.ingredient_id, 'name', ingredients.name))
-          END AS ingredients
+          array_agg(json_build_object('id', ingredients_grocery_list.ingredient_id, 'name', ingredients.name)) AS ingredients
         FROM grocery_list
-        LEFT JOIN ingredients ON ingredients.id = grocery_list.ingredient_id
-        GROUP BY grocery_list.id, grocery_list.ingredient_id, ingredients.name
+        LEFT JOIN ingredients_grocery_list ON ingredients_grocery_list.grocery_list_id = grocery_list.id
+        LEFT JOIN ingredients ON ingredients.id = ingredients_grocery_list.ingredient_id
+        GROUP BY grocery_list.id
         ORDER BY grocery_list.id
       `
     ).then(({ rows: grocery_list }) => {
@@ -28,7 +26,7 @@ module.exports = (db, updateGroceryList) => {
     const { id } = req.body.ingredients;
 
     db.query(
-      `INSERT INTO ingredients_grocery_list (ingredient_id, grocery_list_id) VALUES ($1::integer, $2::integer)`,
+      `INSERT INTO ingredients_grocery_list (ingredient_id) VALUES ($1::integer)`,
       [id, Number(req.params.id)]
     )
       .then(() => {

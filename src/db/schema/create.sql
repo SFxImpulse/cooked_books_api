@@ -23,12 +23,11 @@ CREATE TABLE recipies (
 
 CREATE TABLE grocery_list (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
-  ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE
+  name VARCHAR(255) NOT NULL
 );
 
--- CREATE TABLE ingredients_grocery_list (
---   ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE,
---   grocery_list_id INTEGER REFERENCES grocery_list(id) ON DELETE CASCADE,
---   PRIMARY KEY (ingredient_id, grocery_list_id)
--- );
+CREATE TABLE ingredients_grocery_list (
+  ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE,
+  grocery_list_id INTEGER REFERENCES grocery_list(id) ON DELETE CASCADE,
+  PRIMARY KEY (ingredient_id, grocery_list_id)
+);
