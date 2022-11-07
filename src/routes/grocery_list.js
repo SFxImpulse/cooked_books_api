@@ -40,9 +40,11 @@ module.exports = (db, updateGroceryList) => {
 
   router.delete("/grocery_list/:id", (req, res) => {
 
+    const { id } = req.body
+
     db.query(
       `DELETE FROM ingredients_grocery_list WHERE ingredient_id = $1::integer`,
-      [req.params.id]
+      [id]
     )
       .then(() => {
         setTimeout(() => {

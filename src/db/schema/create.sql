@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS favourites CASCADE;
 DROP TABLE IF EXISTS ingredients_grocery_list CASCADE;
 DROP TABLE IF EXISTS grocery_list CASCADE;
-DROP TABLE IF EXISTS recipies CASCADE;
+DROP TABLE IF EXISTS recipes CASCADE;
 DROP TABLE IF EXISTS ingredients CASCADE;
 
 CREATE TABLE ingredients (
@@ -12,7 +12,7 @@ CREATE TABLE ingredients (
   image TEXT NOT NULL
 );
 
-CREATE TABLE recipies (
+CREATE TABLE recipes (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
   ingredients jsonb,

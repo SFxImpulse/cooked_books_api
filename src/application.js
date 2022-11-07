@@ -11,7 +11,7 @@ const app = express();
 const db = require("./db");
 
 const ingredients = require("./routes/ingredients");
-const recipies = require("./routes/recipies");
+const recipes = require("./routes/recipes");
 const grocery_list = require("./routes/grocery_list");
 
 function read(file) {
@@ -38,7 +38,7 @@ module.exports = function application(
   app.use(bodyparser.json());
 
   app.use("/api", ingredients(db));
-  app.use("/api", recipies(db));
+  app.use("/api", recipes(db));
   app.use("/api", grocery_list(db, actions.updateGroceryList));
 
   if (ENV === "development") {
