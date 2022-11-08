@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS favourites CASCADE;
 DROP TABLE IF EXISTS ingredients_grocery_list CASCADE;
 DROP TABLE IF EXISTS grocery_list CASCADE;
 DROP TABLE IF EXISTS recipes CASCADE;
@@ -18,7 +17,8 @@ CREATE TABLE recipes (
   ingredients jsonb,
   description TEXT NOT NULL,
   instructions TEXT NOT NULL,
-  image TEXT NOT NULL
+  image TEXT NOT NULL,
+  favourite BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE grocery_list (
