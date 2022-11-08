@@ -1,7 +1,7 @@
 const PORT = process.env.PORT || 8001;
 const ENV = require("./environment");
 
-const app = require("./application")(ENV, { updateGroceryList });
+const app = require("./application")(ENV, { updateGroceryList, updateFavourites });
 const server = require("http").Server(app);
 
 const WebSocket = require("ws");
@@ -24,7 +24,20 @@ function updateGroceryList(ingredient_id, grocery_list_id) {
         JSON.stringify({
           type: "SET_GROCERYLIST",
           ingredient_id,
-          grocery_list_id,
+          grocery_list_id
+        })
+      );
+    }
+  });
+}
+
+function updateFavourites(recipe_id) {
+  wss.clients.forEach(function eachClient(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(
+        JSON.stringify({
+          type: "SET_FAVOURITES",
+          recipe_id
         })
       );
     }
