@@ -31,14 +31,14 @@ function read(file) {
 
 module.exports = function application(
   ENV,
-  actions = { updateGroceryList: () => {} }
+  actions = { updateGroceryList: () => {}, updateFavourites: () => {} }
 ) {
   app.use(cors());
   app.use(helmet());
   app.use(bodyparser.json());
 
   app.use("/api", ingredients(db));
-  app.use("/api", recipes(db));
+  app.use("/api", recipes(db, actions.updateFavourites));
   app.use("/api", grocery_list(db, actions.updateGroceryList));
 
   if (ENV === "development") {
