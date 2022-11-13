@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS favourites CASCADE;
 DROP TABLE IF EXISTS ingredients_grocery_list CASCADE;
 DROP TABLE IF EXISTS grocery_list CASCADE;
 DROP TABLE IF EXISTS recipes CASCADE;
@@ -28,4 +29,8 @@ CREATE TABLE ingredients_grocery_list (
   ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE,
   grocery_list_id INTEGER REFERENCES grocery_list(id) ON DELETE CASCADE,
   PRIMARY KEY (ingredient_id, grocery_list_id)
+);
+
+CREATE TABLE favourites (
+  recipe_id INTEGER PRIMARY KEY REFERENCES recipes(id)
 );

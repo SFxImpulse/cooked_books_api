@@ -22,3 +22,7 @@ VALUES
 -- INSERT INTO ingredients_grocery_list (ingredient_id, grocery_list_id)
 -- VALUES
   -- (1, 1), (2, 1);
+
+INSERT INTO favourites (recipe_id)
+VALUES
+  ('1');
