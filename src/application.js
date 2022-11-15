@@ -13,6 +13,7 @@ const db = require("./db");
 const ingredients = require("./routes/ingredients");
 const recipes = require("./routes/recipes");
 const grocery_list = require("./routes/grocery_list");
+const favourites = require("./routes/favourites");
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -40,6 +41,7 @@ module.exports = function application(
   app.use("/api", ingredients(db));
   app.use("/api", recipes(db, actions.updateFavourites));
   app.use("/api", grocery_list(db, actions.updateGroceryList));
+  app.use("/api", favourites(db));
 
   if (ENV === "development") {
     Promise.all([
