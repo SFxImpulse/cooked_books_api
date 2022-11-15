@@ -7,5 +7,13 @@ module.exports = db => {
     });
   });
 
+  router.post("/favourites/:id", (req, res) => {
+
+    console.log(req.body);
+
+    db.query(`INSERT INTO favourites (recipe_id) VALUES ($1::integer)`,
+    [])
+  })
+
   return router;
 };
